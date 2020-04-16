@@ -11,12 +11,32 @@ public class PlayerMovement : MonoBehaviour
     AudioSource m_AudioSource;
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
+    
+    public GameObject player;
+    public GameObject exit;
+    public ParticleSystem particletest;
+    Vector3 startpos = new Vector3(-9.8f,0.0f,-3.2f);
+    Vector3 exitpos = new Vector3(18.0f,0.0f,1.49009f);
+    float fraction = 0;
 
     void Start()
     {
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_AudioSource = GetComponent<AudioSource>();
+    }
+
+    void Update() {
+        fraction = player.transform.position.z/1.49009f;
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            particletest.transform.position = player.transform.position;
+            particletest.Play();
+            particletest.enableEmission = true;
+        }
+
+        Vector3 result = Vector3.Lerp(startpos, exitpos, fraction);
+        player.GetComponent<Renderer>().material.color = new Color(result.x*5/255f, 0, result.z*5/255f);
     }
 
     void FixedUpdate()
