@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 startpos = new Vector3(-9.8f,0.0f,-3.2f);
     Vector3 exitpos = new Vector3(18.0f,0.0f,1.49009f);
     float fraction = 0;
+    public Light lt;
 
     void Start()
     {
@@ -36,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 result = Vector3.Lerp(startpos, exitpos, fraction);
-        player.GetComponent<Renderer>().material.color = new Color(result.x*5/255f, 0, result.z*5/255f);
+        lt.color = Color.Lerp(Color.red, Color.blue, fraction);
     }
 
     void FixedUpdate()
