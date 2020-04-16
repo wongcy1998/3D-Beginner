@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem particletest;
     Vector3 startpos = new Vector3(-9.8f,0.0f,-3.2f);
     Vector3 exitpos = new Vector3(18.0f,0.0f,1.49009f);
+    Vector3 speedboost = new Vector3(-16.0f,0f,0f);
     float fraction = 0;
     public Light lt;
 
@@ -32,6 +33,13 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space)){
             particletest.transform.position = player.transform.position;
+            particletest.Play();
+            particletest.enableEmission = true;
+        }
+
+        if(player.transform.position.x < speedboost.x){
+           float playerx = (Vector3.Dot(player.transform.position, speedboost) * player.transform.position.x); 
+            particletest.transform.position = new Vector3 (playerx/750.0f, 0, player.transform.position.z);
             particletest.Play();
             particletest.enableEmission = true;
         }
